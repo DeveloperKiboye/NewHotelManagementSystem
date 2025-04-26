@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1745667186 source:c:\users\user\desktop\introduction to programming assignments\hello\cat practice\my name\obj\newhotelmanagementsystem\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
