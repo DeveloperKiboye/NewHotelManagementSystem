@@ -85,7 +85,7 @@ void displayRoom(Room *room) {
 void displayAllRooms(Room rooms[], int numRooms) {
     printf("\n--- All Rooms ---\n");
     for (int i = 0; i < numRooms; i++) {
-        displayRoom(&rooms[i]); // Use the helper function
+        displayRoom(&rooms[i]);
     }
 }
 
@@ -93,10 +93,10 @@ void displayAllRooms(Room rooms[], int numRooms) {
 int findRoom(Room rooms[], int numRooms, int roomNumber) {
     for (int i = 0; i < numRooms; i++) {
         if (rooms[i].roomNumber == roomNumber) {
-            return i; // Return the index of the room
+            return i;
         }
     }
-    return -1; // Return -1 if room not found
+    return -1;
 }
 
 // Function to book a room
@@ -108,7 +108,7 @@ void bookRoom(Room rooms[], int numRooms) {
     printf("Enter room number to book: ");
     if (scanf("%d", &roomNumber) != 1) {
         printf("Invalid input for room number.\n");
-        while (getchar() != '\n'); // Clear input buffer
+        while (getchar() != '\n');
         return;
     }
 
@@ -129,9 +129,8 @@ void bookRoom(Room rooms[], int numRooms) {
         while (getchar() != '\n');
         return;
     }
-    if (strlen(guestName) >= MAX_NAME_LENGTH)
-    {
-        printf("Guest name is too long\n");
+    if (strlen(guestName) >= MAX_NAME_LENGTH) {
+        printf("Guest name is too long.\n");
         return;
     }
 
@@ -141,9 +140,8 @@ void bookRoom(Room rooms[], int numRooms) {
         while (getchar() != '\n');
         return;
     }
-     if (strlen(guestPhone) >= MAX_PHONE_LENGTH)
-    {
-        printf("Guest Phone is too long\n");
+    if (strlen(guestPhone) >= MAX_PHONE_LENGTH) {
+        printf("Guest phone number is too long.\n");
         return;
     }
 
@@ -157,9 +155,9 @@ void bookRoom(Room rooms[], int numRooms) {
 void checkInGuest(Room rooms[], int numRooms) {
     int roomNumber;
     printf("Enter room number to check in: ");
-     if (scanf("%d", &roomNumber) != 1) {
+    if (scanf("%d", &roomNumber) != 1) {
         printf("Invalid input for room number.\n");
-        while (getchar() != '\n'); // Clear input buffer
+        while (getchar() != '\n');
         return;
     }
     int roomIndex = findRoom(rooms, numRooms, roomNumber);
@@ -185,7 +183,7 @@ void checkOutGuest(Room rooms[], int numRooms) {
     printf("Enter room number to check out: ");
     if (scanf("%d", &roomNumber) != 1) {
         printf("Invalid input for room number.\n");
-        while (getchar() != '\n'); // Clear input buffer
+        while (getchar() != '\n');
         return;
     }
     int roomIndex = findRoom(rooms, numRooms, roomNumber);
@@ -198,7 +196,7 @@ void checkOutGuest(Room rooms[], int numRooms) {
         return;
     }
     rooms[roomIndex].status = AVAILABLE;
-    strcpy(rooms[roomIndex].guestName, ""); // Clear guest details
+    strcpy(rooms[roomIndex].guestName, "");
     strcpy(rooms[roomIndex].guestPhone, "");
     printf("Guest checked out successfully.\n");
 }
@@ -206,7 +204,7 @@ void checkOutGuest(Room rooms[], int numRooms) {
 // Function to display available rooms
 void displayAvailableRooms(Room rooms[], int numRooms) {
     printf("\n--- Available Rooms ---\n");
-    int found = 0; // To track if any available rooms were found
+    int found = 0;
     for (int i = 0; i < numRooms; i++) {
         if (rooms[i].status == AVAILABLE) {
             displayRoom(&rooms[i]);
@@ -215,6 +213,27 @@ void displayAvailableRooms(Room rooms[], int numRooms) {
     }
     if (!found) {
         printf("No available rooms.\n");
+    }
+}
+
+// 🆕 Function to search guest by name or phone (partial match)
+void searchGuest(Room rooms[], int numRooms) {
+    char search[MAX_NAME_LENGTH];
+    printf("Enter guest name or phone number to search: ");
+    scanf(" %[^\n]", search);
+
+    int found = 0;
+    for (int i = 0; i < numRooms; i++) {
+        if (rooms[i].status != AVAILABLE) {
+            if (strstr(rooms[i].guestName, search) != NULL || strstr(rooms[i].guestPhone, search) != NULL) {
+                printf("\nGuest found!\n");
+                displayRoom(&rooms[i]);
+                found = 1;
+            }
+        }
+    }
+    if (!found) {
+        printf("Guest not found.\n");
     }
 }
 
@@ -227,6 +246,7 @@ void displayMenu() {
     printf("4. Check in a Guest\n");
     printf("5. Check out a Guest\n");
     printf("6. Exit\n");
+    printf("7. Search Guest by Name or Phone Number\n"); // 🆕 New menu option
     printf("Enter your choice: ");
 }
 
@@ -235,14 +255,14 @@ int main() {
     int numRooms = MAX_ROOMS;
     int choice;
 
-    initializeRooms(rooms, numRooms); // Initialize the rooms
+    initializeRooms(rooms, numRooms);
 
     do {
         displayMenu();
         if (scanf("%d", &choice) != 1) {
             printf("Invalid input. Please enter a number.\n");
-            while (getchar() != '\n'); // Clear input buffer
-            choice = 0; // Go back to the beginning of the loop
+            while (getchar() != '\n');
+            choice = 0;
             continue;
         }
         switch (choice) {
@@ -264,6 +284,9 @@ int main() {
             case 6:
                 printf("Exiting the system.\n");
                 break;
+            case 7:
+                searchGuest(rooms, numRooms);
+                break;
             default:
                 printf("Invalid choice. Please try again.\n");
         }
@@ -271,4 +294,3 @@ int main() {
 
     return 0;
 }
-
