@@ -244,8 +244,8 @@ void displayMenu() {
     printf("3. Book a Room\n");
     printf("4. Check in a Guest\n");
     printf("5. Check out a Guest\n");
-    printf("7. Search Guest by Name or Phone Number\n"); // Moved before Exit
-    printf("6. Exit\n");  // Moved after the search option
+    printf("6. Search Guest by Name or Phone Number\n"); 
+    printf("7. Exit\n"); 
     printf("Enter your choice: ");
 }
 
