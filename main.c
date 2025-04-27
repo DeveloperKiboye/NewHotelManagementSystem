@@ -244,10 +244,11 @@ void displayMenu() {
     printf("3. Book a Room\n");
     printf("4. Check in a Guest\n");
     printf("5. Check out a Guest\n");
-    printf("6. Exit\n");
-    printf("7. Search Guest by Name or Phone Number\n"); 
+    printf("7. Search Guest by Name or Phone Number\n"); // Moved before Exit
+    printf("6. Exit\n");  // Moved after the search option
     printf("Enter your choice: ");
 }
+
 
 int main() {
     Room rooms[MAX_ROOMS];
