@@ -282,15 +282,16 @@ int main() {
                 checkOutGuest(rooms, numRooms);
                 break;
             case 6:
-                printf("Exiting the system.\n");
+                searchGuest(rooms, numRooms);  // Now handles search
                 break;
             case 7:
-                searchGuest(rooms, numRooms);
+                printf("Exiting the system.\n");  // Now option 7 is exit
                 break;
             default:
                 printf("Invalid choice. Please try again.\n");
         }
-    } while (choice != 6);
+    } while (choice != 7);  // The exit option is now case 7
 
     return 0;
 }
+
