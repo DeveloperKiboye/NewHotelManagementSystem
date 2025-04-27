@@ -17,8 +17,8 @@
 // Structure to represent a room
 typedef struct {
     int roomNumber;
-    int roomType; // 1: Single, 2: Double, 3: Suite
-    int status;    // 0: Available, 1: Booked, 2: Checked-in
+    int roomType; 
+    int status;   
     char guestName[MAX_NAME_LENGTH];
     char guestPhone[MAX_PHONE_LENGTH];
 } Room;
@@ -55,7 +55,6 @@ char *getRoomStatusName(int status) {
 void initializeRooms(Room rooms[], int numRooms) {
     for (int i = 0; i < numRooms; i++) {
         rooms[i].roomNumber = i + 1;
-        // Assign room types in a round-robin fashion
         if (i % 3 == 0) {
             rooms[i].roomType = SINGLE_ROOM;
         } else if (i % 3 == 1) {
@@ -216,7 +215,7 @@ void displayAvailableRooms(Room rooms[], int numRooms) {
     }
 }
 
-// 🆕 Function to search guest by name or phone (partial match)
+//Function to search for a guest by name or phone number
 void searchGuest(Room rooms[], int numRooms) {
     char search[MAX_NAME_LENGTH];
     printf("Enter guest name or phone number to search: ");
@@ -246,7 +245,7 @@ void displayMenu() {
     printf("4. Check in a Guest\n");
     printf("5. Check out a Guest\n");
     printf("6. Exit\n");
-    printf("7. Search Guest by Name or Phone Number\n"); // 🆕 New menu option
+    printf("7. Search Guest by Name or Phone Number\n"); 
     printf("Enter your choice: ");
 }
 
